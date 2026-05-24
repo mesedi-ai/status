@@ -52,7 +52,7 @@ sites:
     method: GET
 
   - name: npm (mesedi TypeScript SDK)
-    url: https://www.npmjs.com/package/mesedi
+    url: https://registry.npmjs.org/mesedi
     expectedStatusCodes:
       - 200
     method: GET
