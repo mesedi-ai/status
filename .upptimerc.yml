@@ -1,31 +1,99 @@
-# Change these first
-owner: upptime # Your GitHub organization or username, where this repository lives
-repo: upptime # The name of this repository
+# Mesedi status page, Upptime config.
+#
+# Upptime runs entirely on GitHub Actions + GitHub Pages. Zero
+# operational cost; setup is one push of this repo to GitHub.
+#
+# After pushing, in repo settings:
+#   1. Pages, Source: deploy from branch `master` (or `gh-pages`)
+#   2. Actions, Workflow permissions: Read and write
+#   3. (Optional, once mesedi.ai domain ships) Add CNAME 'status'
+#      under mesedi.ai pointing at mesedi-ai.github.io
+#
+# Status workflow runs every 5 minutes and writes the result to a
+# committed file in this repo. The committed history IS the audit
+# trail, no separate database, no external uptime SaaS.
 
+owner: mesedi-ai
+repo: status
+
+# What we monitor. Each entry is one URL probed every 5 minutes.
 sites:
-  - name: Google
-    url: https://www.google.com
-  - name: Wikipedia
-    url: https://en.wikipedia.org
-  - name: Hacker News
-    url: https://news.ycombinator.com
-  - name: Test Broken Site
-    url: https://thissitedoesnotexist.koj.co
+  - name: mesedi-api.fly.dev (backend)
+    url: https://mesedi-api.fly.dev/health
+    expectedStatusCodes:
+      - 200
+    method: GET
 
+  - name: mesedi.vercel.app (marketing)
+    url: https://mesedi.vercel.app/
+    expectedStatusCodes:
+      - 200
+    method: GET
+
+  - name: mesedi.vercel.app/pricing
+    url: https://mesedi.vercel.app/pricing
+    expectedStatusCodes:
+      - 200
+    method: GET
+
+  - name: mesedi.vercel.app/app (customer dashboard)
+    url: https://mesedi.vercel.app/app
+    expectedStatusCodes:
+      - 200
+      - 301
+      - 302
+      - 401   # auth gate, site responding even if we get redirected
+    method: GET
+
+  - name: PyPI (mesedi python SDK)
+    url: https://pypi.org/project/mesedi/
+    expectedStatusCodes:
+      - 200
+    method: GET
+
+  - name: npm (mesedi TypeScript SDK)
+    url: https://www.npmjs.com/package/mesedi
+    expectedStatusCodes:
+      - 200
+    method: GET
+
+# Status-page chrome.
 status-website:
-  # Add your custom domain name, or remove the `cname` line if you don't have a domain
-  # Uncomment the `baseUrl` line if you don't have a custom domain and add your repo name there
-  cname: demo.upptime.js.org
-  # baseUrl: /your-repo-name
-  logoUrl: https://raw.githubusercontent.com/upptime/upptime.js.org/master/static/img/icon.svg
-  name: Upptime
-  introTitle: "**Upptime** is the open-source uptime monitor and status page, powered entirely by GitHub."
-  introMessage: This is a sample status page which uses **real-time** data from our [GitHub repository](https://github.com/upptime/upptime). No server required — just GitHub Actions, Issues, and Pages. [**Get your own for free**](https://github.com/upptime/upptime)
+  # cname: status.mesedi.ai  # enable once mesedi.ai domain ships
+  baseUrl: /status
+  name: Mesedi Status
+  introTitle: "**Mesedi Status**, public uptime"
+  introMessage: |
+    This page reports uptime across every public Mesedi surface.
+    Each row probes its target every 5 minutes; the 90-day bars
+    below show the historical result. Source data is committed to
+    the `mesedi-ai/status` GitHub repository, the commit history
+    IS the audit trail.
   navbar:
     - title: Status
       href: /
     - title: GitHub
-      href: https://github.com/$OWNER/$REPO
+      href: https://github.com/mesedi-ai/status
+    - title: Mesedi
+      href: https://mesedi.vercel.app
 
-# Upptime also supports notifications, assigning issues, and more
-# See https://upptime.js.org/docs/configuration
+# Slack / Discord incident forwarding stays off until ready.
+notifications:
+  - type: slack
+    # webhook-url: $SLACK_WEBHOOK_URL
+
+assignees:
+  - rob.j.canario
+
+i18n:
+  outage: "Outage"
+  downtime: "Downtime"
+  uptime: "Uptime"
+  responseTime: "Response Time"
+  allSystemsOperational: "All systems operational"
+  partialOutage: "Partial outage"
+  majorOutage: "Major outage"
+  totalDowntime: "Total downtime"
+  totalIncidents: "Total incidents"
+  hours: "hours"
+  minutes: "minutes"
