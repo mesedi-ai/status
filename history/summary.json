@@ -94,19 +94,19 @@
     "url": "https://www.npmjs.com/package/mesedi",
     "icon": "https://icons.duckduckgo.com/ip3/www.npmjs.com.ico",
     "slug": "npm-mesedi-type-script-sdk",
-    "status": "down",
-    "uptime": "51.92%",
-    "uptimeDay": "51.92%",
-    "uptimeWeek": "51.92%",
-    "uptimeMonth": "51.92%",
-    "uptimeYear": "51.92%",
-    "time": 54,
-    "timeDay": 54,
-    "timeWeek": 54,
-    "timeMonth": 54,
-    "timeYear": 54,
+    "status": "up",
+    "uptime": "1.82%",
+    "uptimeDay": "1.82%",
+    "uptimeWeek": "1.82%",
+    "uptimeMonth": "1.82%",
+    "uptimeYear": "1.82%",
+    "time": 75,
+    "timeDay": 75,
+    "timeWeek": 75,
+    "timeMonth": 75,
+    "timeYear": 75,
     "dailyMinutesDown": {
-      "2026-05-24": 0
+      "2026-05-24": 14
     }
   }
 ]
